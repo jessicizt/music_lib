@@ -1,0 +1,22 @@
+<aside id="sidebar">
+
+    <header>
+        <h1>Editor's picks</h1>
+    </header>
+
+    {% for track in selected_tracks %}
+        <div id="article-container">
+            <div id="article-description">
+            <p>
+                Song: {{ track.title }} <br>
+                Singer: {{ track.artist.full_name }} <br>
+                Alubm: {{ track.album.title }} <br>
+                {%for genre in track.genres%}
+                Genres : {{ genre.name }}
+                {% endfor %}
+            </p>
+            </div>
+            <button class="btn-general" onclick="location.href='{{track.track_url}}'">View</button>
+        </div>
+    {% endfor %}
+</aside>

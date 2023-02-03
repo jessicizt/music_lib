@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<main id="main">
+    <div class="formwrapper">
+        <h1 class="title">{{ title }}</h1>
+        <form method="POST" action="{{ handler_url }}">
+             {{ form.csrf_token }} <!-- Need to include this token - Flask WTForms requires it. -->
+            <div class="form-field">{{ form.comment.label }} {{ form.comment }}
+                {% if form.comment.errors or comment_error_message is not none %}
+                    <ul class="errors">
+                        {% if comment_error_message is not none %}
+                            <li>
+                                {{ comment_error_message }}
+                            </li>
+                        {% endif %}
+                        {% for error in form.comment.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="form-field">{{ form.rating.label }} {{ form.rating }}
+                {% if form.rating.errors or rating_error_message is not none %}
+                    <ul class="errors">
+                        {% if rating_error_message is not none %}
+                            <li>
+                                {{ rating_error_message }}
+                            </li>
+                        {% endif %}
+                        {% for error in form.rating.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {{ form.submit }}
+        </form>
+    </div>
+    <div>
+        {% if reviews is not none%}
+        {%for review in reviews%}
+        <p>{{ review.rating }}: {{ review.review_text }} at {{ review.timestamp }} </p>
+        {%endfor%}
+        {%endif%}
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<main id="main">
+  <div>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Genres</th>
+        <th>Link</th>
+      </tr>
+      {% for track in tracks %}
+      <tr>
+        <td>{{ track.track_id }}</td>
+        <td>{{ track.title }}</td>
+        <td>{{ track.artist.full_name }}</td>
+        <td>{{ track.album.title }}</td>
+        <td>
+          {%for genre in track.genres%}
+          {{ genre.name }}
+          {% endfor %}
+        </td>
+        <td>
+          <button class="btn-general" onclick="location.href='{{track.track_url}}'">View</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</main>
+{% endblock %}
